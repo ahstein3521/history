@@ -46,10 +46,16 @@ const createBrowserHistory = (props = {}) => {
     getUserConfirmation = getConfirmation,
     keyLength = 6
   } = props;
-  const basename = props.basename
+  
+  let basename = props.basename
     ? stripTrailingSlash(addLeadingSlash(props.basename))
     : "";
 
+  const setBasename = newBasename => {
+    basename = newBasename ? stripTrailingSlash(addLeadingSlash(props.basename)) 
+    : basename;
+  }
+  
   const getDOMLocation = historyState => {
     const { key, state } = historyState || {};
     const { pathname, search, hash } = window.location;
@@ -319,7 +325,8 @@ const createBrowserHistory = (props = {}) => {
     goBack,
     goForward,
     block,
-    listen
+    listen,
+    setBasename
   };
 
   return history;
